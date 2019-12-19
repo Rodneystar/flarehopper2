@@ -10,13 +10,11 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.Test;
 
-import reactor.core.scheduler.Scheduler;
-import reactor.core.scheduler.Schedulers;
 import reactor.test.scheduler.VirtualTimeScheduler;
 
-public class TimerModuleTests {
+public class DailyTimerControlTests {
 
-    public TimerModule out;
+    public DailyTimerControl out;
 
     public void setup() {
     }
@@ -39,7 +37,7 @@ public class TimerModuleTests {
             offLatch.countDown();}
     }
 
-        out = new TimerModule( new TestSwitchable(), testScheduler, timerEventList);
+        out = new DailyTimerControl( new TestSwitchable(), testScheduler, timerEventList);
 
         assertThat(offLatch.getCount()).isEqualTo(offLatchCount - 0);    
         assertThat(onLatch.getCount()).isEqualTo(onLatchCount- 0);    

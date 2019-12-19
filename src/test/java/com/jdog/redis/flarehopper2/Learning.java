@@ -15,9 +15,21 @@ import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 import reactor.test.scheduler.VirtualTimeScheduler;
 
-
 @Disabled
 public class Learning {
+
+
+    @Test
+    public void testDisposed() {
+        VirtualTimeScheduler.getOrSet();
+        VirtualTimeScheduler scheduler = VirtualTimeScheduler.get();
+
+        Disposable disposable = Mono.delay(Duration.ofMillis(100)).subscribe(System.out::println);
+        System.out.println(disposable.isDisposed());
+        scheduler.advanceTimeBy( Duration.ofSeconds(1));
+        System.out.println(disposable.isDisposed());
+    }
+
 
     @Test
     public void testBUffer() {
