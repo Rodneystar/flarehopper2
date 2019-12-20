@@ -90,4 +90,8 @@ public class DailyTimerControl {
     private void stopTimers() {
         timerDisposable.dispose();
     }
+
+
+	public void setEventList(List<TimerEvent> eventList) {
+	}
 }

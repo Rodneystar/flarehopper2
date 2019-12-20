@@ -1,6 +1,5 @@
 package com.jdog.redis.flarehopper2;
 
-
 import com.jdog.redis.flarehopper2.dailytimer.DailyTimerControl;
 import reactor.core.Disposable;
 import reactor.core.Disposables;
@@ -12,9 +11,9 @@ import java.time.temporal.ChronoUnit;
 
 public class FlarehopperService {
 
-    private DailyTimerControl timerControl;
-    private FlarehopperMode currentMode;
-    private FlarehopperMode prevMode;
+    protected DailyTimerControl timerControl;
+    protected FlarehopperMode currentMode;
+    protected FlarehopperMode prevMode;
     private Disposable runbackDisposable;
 
     private LocalDateTime runbackUntil;
@@ -65,6 +64,7 @@ public class FlarehopperService {
         if(!runbackDisposable.isDisposed())
             runbackDisposable.dispose();
         runbackUntil = LocalDateTime.of(1999,12,30,23,59,59);
+
     }
 
 
@@ -90,7 +90,7 @@ public class FlarehopperService {
         }
     }
 
-    private void modeSet(FlarehopperMode prevMode) {
+    protected void modeSet(FlarehopperMode prevMode) {
         switch (prevMode) {
             case RUNBACK: throw new IllegalStateException("cant set runback from modeset");
             case ON:  modeOn(); break;

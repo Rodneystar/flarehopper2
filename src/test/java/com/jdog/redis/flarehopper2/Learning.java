@@ -1,9 +1,21 @@
 package com.jdog.redis.flarehopper2;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.ByteBuffer;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.concurrent.CountDownLatch;
+
+import com.jdog.redis.flarehopper2.FlarehopperService.FlarehopperMode;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -15,10 +27,29 @@ import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 import reactor.test.scheduler.VirtualTimeScheduler;
 
-@Disabled
+// @Disabled
 public class Learning {
 
+    @Test
+    public void objOutputs() throws ClassNotFoundException, IOException, URISyntaxException {
+        File os = new File("teststate");
 
+        FileOutputStream fos = new FileOutputStream(os);
+        ObjectOutputStream outPutStream = new ObjectOutputStream(fos);
+
+        AppState state = new AppState();
+        state.currentMode  = FlarehopperMode.ON;
+        outPutStream.writeObject(state);
+        
+    
+    
+    }
+    @Test
+    public void objOutput() throws ClassNotFoundException, IOException {
+        ObjectInputStream inputStream = new ObjectInputStream(this.getClass().getResourceAsStream("teststate"));
+            AppState state = (AppState) inputStream.readObject();
+            System.out.print(state.currentMode);
+    }
     @Test
     public void testDisposed() {
         VirtualTimeScheduler.getOrSet();
