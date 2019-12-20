@@ -12,13 +12,13 @@ import reactor.test.scheduler.VirtualTimeScheduler;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 class FlarehopperServiceTest {
-
 
     FlarehopperService service;
 
@@ -31,7 +31,6 @@ class FlarehopperServiceTest {
     AtomicInteger onCounter;
 
     AtomicInteger offCounter;
-
 
     @BeforeEach
     void setUp() {
@@ -65,5 +64,23 @@ class FlarehopperServiceTest {
 
         assertThat(onCounter.get()).isEqualTo(1);
         assertThat(offCounter.get()).isEqualTo( initOffCounter + 1 );
+    }
+
+    @Test
+    public void persistentService_saveThenLoad_stateIsRestored() {
+        TimerEventList eventList = new TimerEventList();
+
+        PersistentFlareHopperService pService =
+                new PersistentFlareHopperService(
+                        new DailyTimerControl(switchable, testScheduler, eventList  ), "teststate");
+        pService.timerControl.addTimer(new TimerEvent(LocalTime.of(1, 30), Duration.ofMinutes(60)));
+        pService.modeOff();
+
+        pService =
+                new PersistentFlareHopperService(
+                        new DailyTimerControl(switchable, testScheduler, eventList), "teststate");
+
+        assertThat(pService.getCurrentMode()).isEqualTo(FlarehopperService.FlarehopperMode.OFF);
+        assertThat(pService.timerControl.getEvents().get(0).getDuration()).isEqualTo(Duration.ofMinutes(60));
     }
 }

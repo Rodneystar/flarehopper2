@@ -1,5 +1,8 @@
 package com.jdog.redis.flarehopper2;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -7,27 +10,30 @@ import java.time.Duration;
 
 import com.jdog.redis.flarehopper2.FlarehopperService.FlarehopperMode;
 import com.jdog.redis.flarehopper2.dailytimer.DailyTimerControl;
+import reactor.core.Disposables;
 
 public class PersistentFlareHopperService extends FlarehopperService {
 
     AppState state;
 
-    ObjectOutputStream outputStream;
+    String filename;
 
     public PersistentFlareHopperService(DailyTimerControl timerControl, String filename) {
-        super(timerControl);
+        super();
+        this.timerControl = timerControl;
+        this.currentMode = FlarehopperMode.OFF;
+        this.runbackDisposable = Disposables.single();
+        this.filename = filename;
 
-        ObjectInputStream inputStream;
-        try {
-            inputStream = new ObjectInputStream(this.getClass().getResourceAsStream(filename));
+        try ( ObjectInputStream inputStream =  new ObjectInputStream(
+                        new FileInputStream(new File(filename)))) {
             state = (AppState) inputStream.readObject();
             load();
         } catch (IOException | ClassNotFoundException ce ) {
-            state = new AppState();
-            ce.printStackTrace();
-        }
 
-        // TODO Auto-generated constructor stub
+            state = new AppState();
+            System.out.println("FILED DOESNT EXIST YET--------------------");
+        }
     }
 
     private void load() {
@@ -42,10 +48,12 @@ public class PersistentFlareHopperService extends FlarehopperService {
     private void save() {
         state.currentMode = currentMode;
         state.eventList = timerControl.getEvents();
-        try {
-            outputStream.writeObject(state);
+        try ( ObjectOutputStream oos =
+                      new ObjectOutputStream(
+                              new FileOutputStream(
+                                      new File(filename)))) {
+            oos.writeObject(state);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

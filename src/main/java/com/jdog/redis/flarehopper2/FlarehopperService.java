@@ -14,7 +14,7 @@ public class FlarehopperService {
     protected DailyTimerControl timerControl;
     protected FlarehopperMode currentMode;
     protected FlarehopperMode prevMode;
-    private Disposable runbackDisposable;
+    protected Disposable runbackDisposable;
 
     private LocalDateTime runbackUntil;
 
@@ -23,6 +23,9 @@ public class FlarehopperService {
         runbackDisposable = Disposables.single();
         modeTimed();
         cancelRunBack();
+    }
+
+    public FlarehopperService() {
     }
 
     public FlarehopperMode getCurrentMode() {
@@ -38,6 +41,10 @@ public class FlarehopperService {
         OFF,
         TIMED,
         RUNBACK
+    }
+
+    public DailyTimerControl getTimer() {
+        return this.timerControl;
     }
 
     public void modeOn() {

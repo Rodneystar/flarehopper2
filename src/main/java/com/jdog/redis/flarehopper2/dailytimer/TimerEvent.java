@@ -1,5 +1,6 @@
 package com.jdog.redis.flarehopper2.dailytimer;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
@@ -7,15 +8,19 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-public class TimerEvent {
+public class TimerEvent implements Serializable {
+
+    private static final long serialVersionUID = 5109614238405878463L;
 
     private LocalTime startTime;
     private Duration duration;
+
 
     public TimerEvent(LocalTime start, Duration duration) {
         this.startTime = start;
         this.duration = duration;
     }
+    public TimerEvent() {}
 
     public LocalTime getStartTime() {
         return startTime;

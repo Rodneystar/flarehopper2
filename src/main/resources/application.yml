@@ -1,5 +1,3 @@
 
 flarehopper:
-    redis:
-        host: localhost
-        port: 6379
+    filename: "flarehopper.state"
