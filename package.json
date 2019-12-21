@@ -1,0 +1,42 @@
+{
+  "name": "flarehopper2",
+  "version": "1.0.0",
+  "description": "ui for flarehopper2",
+  "main": "index.js",
+  "dependencies": {
+    "@babel/polyfill": "^7.7.0",
+    "@babel/preset-react": "^7.7.4",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^3.4.0",
+    "node-sass": "^4.13.0",
+    "npm": "^6.13.4",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "sass-loader": "^8.0.0",
+    "style-loader": "^1.1.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
+    "webpack": "^4.41.4",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.10.1"
+  },
+  "scripts": {
+    "build": "webpack",
+    "start": "webpack-dev-server --open",
+    "watch": "webpack --watch -d",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rodneystar/flarehopper2.git"
+  },
+  "author": "J Leighton",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Rodneystar/flarehopper2/issues"
+  },
+  "homepage": "https://github.com/Rodneystar/flarehopper2#readme"
+}
