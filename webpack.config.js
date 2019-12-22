@@ -5,8 +5,9 @@ module.exports = {
     devtool: 'sourcemaps',
     devServer: {
         port: 9000,
-
-//        publicPath: '/src/main/resources/static/built/',
+        proxy: {
+            '/mode': 'http://localhost:8080'
+        },
         contentBase: path.join(__dirname, '/src/main/resources/static/built')
     },
     mode: 'development',

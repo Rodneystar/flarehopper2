@@ -1,18 +1,36 @@
 
+body{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font: Verdana;
+
+    }
 
 #modeswitchcontainer {
-
+        
+    margin-top: 1rem;
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-content: center;
-
-    .modebutton {
+    height: 3rem;
+    flex-flow: row wrap;
+    // flex-direction: row;
+    // flex-wrap: wrap;
+    justify-content: space-around;
+    // align-content: center;
+    // align-items: flex-end;
+    
+    .modebutton{
         box-sizing: border-box;
-        flex-basis: 7rem;
-        flex-grow: 0;
-        /* border-block: true; */
+        flex-basis: 6rem;
+        height: 100%;
+        text-align: center;
+        line-height: 2rem;
+    }
+    .activemodebutton {
+        @extend .modebutton;
+        background-color: aqua;
+    }
+
+    .inactivemodebutton {
+        @extend .modebutton;
         background-color: red;
     }
 }
-
