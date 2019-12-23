@@ -40,6 +40,14 @@ public class Learning {
 
 
     @Test
+    public void testIntervalZeroDuration() throws InterruptedException {
+        Flux.interval(Duration.ZERO, Duration.ofSeconds(5))
+                .take(5)
+                .subscribe( n -> System.out.println(n));
+
+        Thread.sleep(20000);
+    }
+    @Test
     public void httpClient() throws IOException, InterruptedException {
         RestTemplateBuilder builder = new RestTemplateBuilder();
         RestTemplate template = builder.uriTemplateHandler(
