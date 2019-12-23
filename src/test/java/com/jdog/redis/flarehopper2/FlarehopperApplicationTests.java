@@ -1,6 +1,7 @@
 package com.jdog.redis.flarehopper2;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -10,6 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,6 +34,15 @@ class FlarehopperApplicationTests {
 	@Autowired
 	ObjectMapper mapper;
 
+	@Autowired
+	FlarehopperService service;
+
+
+	@BeforeEach
+	public void setup() {
+		service.factoryReset();
+	}
+
 	@Test
 	public void deleteEvent_callsDeleteOnTimerList_returnsOkIfOutOfBounds() throws Exception {
 		mockMvc.perform( delete("/timers/delete/0")
@@ -39,8 +50,12 @@ class FlarehopperApplicationTests {
 				.andExpect( status().isOk() );
 
 	}
+
+
+
 	@Test
 	void getTimers_returnsJsonList() throws Exception {
+
 		Map<String, String> addTimerReqBody = new HashMap();
 		addTimerReqBody.put("startTime", "19:30");
 		addTimerReqBody.put("duration", "PT120M");

@@ -48,13 +48,13 @@ public class FlareController {
 
     @DeleteMapping("/timers/delete/{index}")
     public void deleteTimer(@PathVariable Integer index) {
-        service.getTimer().removeTimer(index);
+        service.removeTimer(index);
     }
 
     @PostMapping("/timers/add")
     @ResponseStatus(HttpStatus.CREATED)
     public TimerEvent postTimer(@RequestBody TimerEvent event) {
-        service.getTimer().addTimer(event);
+        service.addTimer(event);
         return event;
     }
 

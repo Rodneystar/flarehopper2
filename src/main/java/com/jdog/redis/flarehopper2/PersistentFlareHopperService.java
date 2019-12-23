@@ -10,6 +10,7 @@ import java.time.Duration;
 
 import com.jdog.redis.flarehopper2.FlarehopperService.FlarehopperMode;
 import com.jdog.redis.flarehopper2.dailytimer.DailyTimerControl;
+import com.jdog.redis.flarehopper2.dailytimer.TimerEvent;
 import reactor.core.Disposables;
 
 public class PersistentFlareHopperService extends FlarehopperService {
@@ -36,6 +37,18 @@ public class PersistentFlareHopperService extends FlarehopperService {
         }
     }
 
+    @Override
+    public void addTimer(TimerEvent event) {
+        super.addTimer(event);
+        save();
+    }
+
+    @Override
+    public void removeTimer(int index) {
+        super.removeTimer(index);
+        save();
+    }
+
     private void load() {
         timerControl.setEventList(state.eventList);
         if (state.currentMode.equals(FlarehopperMode.RUNBACK)) {
@@ -44,7 +57,7 @@ public class PersistentFlareHopperService extends FlarehopperService {
             modeSet(state.currentMode);
         }
     }
-    
+
     private void save() {
         state.currentMode = currentMode;
         state.eventList = timerControl.getEvents();

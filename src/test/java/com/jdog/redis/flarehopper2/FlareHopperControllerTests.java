@@ -71,7 +71,7 @@ public class FlareHopperControllerTests {
                 .andExpect( status().isCreated() );
 
         ArgumentCaptor<TimerEvent> eventArgumentCaptor = ArgumentCaptor.forClass(TimerEvent.class);
-        verify(timer, times(1)).addTimer(eventArgumentCaptor.capture());
+        verify(service, times(1)).addTimer(eventArgumentCaptor.capture());
         TimerEvent passedEvent = eventArgumentCaptor.getValue();
         assertThat(passedEvent.getDuration()).isEqualTo(Duration.ofHours(2));
     }
@@ -82,6 +82,6 @@ public class FlareHopperControllerTests {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect( status().isOk() );
 
-        verify(timer, times(1)).removeTimer( eq(0));
+        verify(service, times(1)).removeTimer( eq(0));
     }
 }

@@ -1,6 +1,7 @@
 package com.jdog.redis.flarehopper2;
 
 import com.jdog.redis.flarehopper2.dailytimer.DailyTimerControl;
+import com.jdog.redis.flarehopper2.dailytimer.TimerEvent;
 import reactor.core.Disposable;
 import reactor.core.Disposables;
 import reactor.core.publisher.Mono;
@@ -8,6 +9,7 @@ import reactor.core.publisher.Mono;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 
 public class FlarehopperService {
 
@@ -35,6 +37,20 @@ public class FlarehopperService {
     public LocalDateTime getRunBackUntil() {
         return runbackUntil;
     }
+
+    public void factoryReset() {
+        this.timerControl.getEvents().clear();
+        this.modeOff();
+    }
+
+    public void addTimer(TimerEvent event) {
+        this.timerControl.addTimer(event);
+    }
+
+    public void removeTimer(int index) {
+        this.timerControl.removeTimer(index);
+    }
+
 
     public enum FlarehopperMode {
         ON,
