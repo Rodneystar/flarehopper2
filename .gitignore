@@ -5,6 +5,7 @@ bin/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**
 !**/src/test/**
+src/main/resources/static/built/**
 
 ### STS ###
 .apt_generated
@@ -35,3 +36,5 @@ out/
 teststate
 
 node_modules
+
+flarehopper.state

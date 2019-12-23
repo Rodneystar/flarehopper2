@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.ByteBuffer;
@@ -24,6 +25,9 @@ import com.jdog.redis.flarehopper2.dailytimer.TimerEvent;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.DefaultUriBuilderFactory;
 import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -34,6 +38,16 @@ import reactor.test.scheduler.VirtualTimeScheduler;
 // @Disabled
 public class Learning {
 
+
+    @Test
+    public void httpClient() throws IOException, InterruptedException {
+        RestTemplateBuilder builder = new RestTemplateBuilder();
+        RestTemplate template = builder.uriTemplateHandler(
+                new DefaultUriBuilderFactory("http://192.168.0.28:5000/")).build();
+//        template.getForObject("/1/on", String.class);
+
+        System.out.println(template.getForObject("/1/off", String.class));
+    }
     @Test
     public void objOutputs() throws ClassNotFoundException, IOException, URISyntaxException {
         File os = new File("teststate");
