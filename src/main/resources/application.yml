@@ -4,3 +4,12 @@ flarehopper:
     powerhost: "192.168.0.28"
     powerport: 5000
     energenieSocketNumber: 1
+
+---
+
+spring.profiles: PROD
+
+server.port: 80
+flarehopper:
+    filename: "flarehopper.state"
+    powerhost: "localhost"
