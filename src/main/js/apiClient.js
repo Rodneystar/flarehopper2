@@ -19,5 +19,9 @@ export const api = {
     getTimers: function() {
         return axios.get("/timers")
             .then( res => res.data )
+    },
+    delTimer: function( index ) {
+        return axios.delete(`/timers/${index}`)
+            .then( res => this.getTimers() )
     }
 }

@@ -7,7 +7,8 @@ module.exports = {
         port: 9000,
         host: "0.0.0.0",
         proxy: {
-            '/mode': 'http://localhost:8080'
+            '/mode': 'http://localhost:8080',
+            '/timers':  'http://localhost:8080'
         },
         contentBase: path.join(__dirname, '/src/main/resources/static/built')
     },

@@ -46,7 +46,7 @@ public class FlareController {
         return resBody;
     }
 
-    @DeleteMapping("/timers/delete/{index}")
+    @DeleteMapping("/timers/{index}")
     public void deleteTimer(@PathVariable Integer index) {
         service.removeTimer(index);
     }
