@@ -93,5 +93,6 @@ public class DailyTimerControl {
 
 
 	public void setEventList(List<TimerEvent> eventList) {
+        this.timerEvents.setEventList(eventList);
 	}
 }

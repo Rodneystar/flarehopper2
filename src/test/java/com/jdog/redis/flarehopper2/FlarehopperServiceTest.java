@@ -4,11 +4,14 @@ import com.jdog.redis.flarehopper2.dailytimer.DailyTimerControl;
 import com.jdog.redis.flarehopper2.dailytimer.Switchable;
 import com.jdog.redis.flarehopper2.dailytimer.TimerEvent;
 import com.jdog.redis.flarehopper2.dailytimer.TimerEventList;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import reactor.test.scheduler.VirtualTimeScheduler;
 
+import java.io.File;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -34,6 +37,8 @@ class FlarehopperServiceTest {
 
     @BeforeEach
     void setUp() {
+        File testFile = new File("teststate");
+        if( testFile.exists() ) {testFile.delete();};
         list =  new TimerEventList();
         list.addEvent( new TimerEvent( LocalTime.of(3, 30), Duration.ofMinutes(120)));
         testScheduler = VirtualTimeScheduler.getOrSet();
@@ -44,6 +49,12 @@ class FlarehopperServiceTest {
         Mockito.doAnswer( invocation -> offCounter.getAndIncrement() ).when(switchable).off();
 
         service = new FlarehopperService(new DailyTimerControl(switchable, testScheduler, list));
+    }
+
+    @AfterEach
+    public void tearDown() {
+        File testFile = new File("teststate");
+        if( testFile.exists() ){testFile.delete();};
     }
 
     @Test
@@ -68,6 +79,7 @@ class FlarehopperServiceTest {
 
     @Test
     public void persistentService_saveThenLoad_stateIsRestored() {
+        
         TimerEventList eventList = new TimerEventList();
 
         PersistentFlareHopperService pService =

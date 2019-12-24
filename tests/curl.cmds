@@ -1,5 +1,5 @@
 curl -H "Content-Type: application/json" -XPOST -d '{"startTime":"04:30", "duration":"PT3H"}' 192.168.0.28:8080/timers/add
 
-curl -H "Content-Type: application/json" 192.168.0.28:8080/timers
+curl -H "Content-Type: application/json" localhost:8080/timers
 
 curl -H "Content-Type: application/json" -XPUT 192.168.0.28:8080/mode/TIMED

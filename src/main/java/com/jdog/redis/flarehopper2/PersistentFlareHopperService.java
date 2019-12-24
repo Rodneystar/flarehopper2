@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.time.Duration;
+import java.util.ArrayList;
 
 import com.jdog.redis.flarehopper2.FlarehopperService.FlarehopperMode;
 import com.jdog.redis.flarehopper2.dailytimer.DailyTimerControl;
@@ -25,14 +26,17 @@ public class PersistentFlareHopperService extends FlarehopperService {
         this.currentMode = FlarehopperMode.OFF;
         this.runbackDisposable = Disposables.single();
         this.filename = filename;
+        this.state = new AppState();
 
-        try ( ObjectInputStream inputStream =  new ObjectInputStream(
-                        new FileInputStream(new File(filename)))) {
-            state = (AppState) inputStream.readObject();
+        File file = new File(filename);
+
+        try ( 
+                FileInputStream fis = new FileInputStream(file);
+                ObjectInputStream inputStream = new ObjectInputStream(fis)
+            ) {
+            this.state = (AppState) inputStream.readObject();
             load();
         } catch (IOException | ClassNotFoundException ce ) {
-
-            state = new AppState();
             System.out.println("FILED DOESNT EXIST YET--------------------");
         }
     }
@@ -50,7 +54,8 @@ public class PersistentFlareHopperService extends FlarehopperService {
     }
 
     private void load() {
-        timerControl.setEventList(state.eventList);
+        ArrayList<TimerEvent> eList = new ArrayList(state.eventList);
+        timerControl.setEventList(eList);
         if (state.currentMode.equals(FlarehopperMode.RUNBACK)) {
             modeTimed();
         } else {

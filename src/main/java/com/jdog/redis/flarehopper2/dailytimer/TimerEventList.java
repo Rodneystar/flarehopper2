@@ -45,4 +45,8 @@ public class TimerEventList {
     public Mono<Boolean> anyActiveAt(LocalTime atTime) {
         return Flux.fromIterable(eventList).any( e -> e.isActiveAt(atTime));
     }
+
+	public void setEventList(List<TimerEvent> eventList) {
+        this.eventList = eventList;
+	}
 }
