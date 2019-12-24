@@ -1,7 +1,7 @@
 
 flarehopper:
     filename: "flarehopper.state"
-    powerhost: "192.168.0.28"
+    powerhost: "192.168.99.100"
     powerport: 5000
     energenieSocketNumber: 1
 
@@ -9,7 +9,6 @@ flarehopper:
 
 spring.profiles: PROD
 
-server.port: 80
 flarehopper:
     filename: "flarehopper.state"
     powerhost: "localhost"

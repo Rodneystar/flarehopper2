@@ -29,7 +29,7 @@
   },
   "scripts": {
     "build": "webpack",
-    "start": "webpack-dev-server --open",
+    "start": "webpack-dev-server",
     "watch": "webpack --watch -d",
     "test": "jest -o",
     "testAll": "jest",

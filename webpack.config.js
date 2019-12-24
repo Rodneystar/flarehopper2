@@ -5,6 +5,7 @@ module.exports = {
     devtool: 'sourcemaps',
     devServer: {
         port: 9000,
+        host: "0.0.0.0",
         proxy: {
             '/mode': 'http://localhost:8080'
         },

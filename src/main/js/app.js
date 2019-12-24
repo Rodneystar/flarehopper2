@@ -26,6 +26,13 @@ class App extends React.Component {
 			})
 	}
 
+	getTimers() {
+		api.getTimers()
+			.then( timers => {
+				this.setstate({timers}) 
+			})
+	}
+
 	render() {
 		return (
 			<ModeSwitchContainer currentMode={this.state.mode} switchMode={this.switchMode} />

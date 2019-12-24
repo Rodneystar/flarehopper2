@@ -21,13 +21,13 @@ public class EnergenieSwitchable implements Switchable {
 
     public EnergenieSwitchable(RestTemplate template) {
         this.template = template;
-        current = OFF;
         intervalDisposable = Disposables.single();
+        current = "";
     }
 
     @Override
     public void on() {
-        if( current != ON ) {
+        if( !ON.equals(current) ) {
             current = ON;
             if( !intervalDisposable.isDisposed()) intervalDisposable.dispose();
             intervalDisposable = Flux.interval(Duration.ZERO, Duration.ofSeconds(5))
@@ -39,12 +39,12 @@ public class EnergenieSwitchable implements Switchable {
 
     @Override
     public void off() {
-        if( current != OFF ) {
+        if( !OFF.equals(current) ) {
         current = OFF;
         if( !intervalDisposable.isDisposed()) intervalDisposable.dispose();
         intervalDisposable = Flux.interval(Duration.ZERO, Duration.ofSeconds(5))
                 .take(10)
-                .subscribe( n -> template.getForObject(ON, String.class));
+                .subscribe( n -> template.getForObject(OFF, String.class));
     }
         System.out.println("energenie off");
     }

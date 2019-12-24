@@ -31,12 +31,35 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.core.publisher.ReplayProcessor;
 import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 import reactor.test.scheduler.VirtualTimeScheduler;
 
-// @Disabled
+import javax.servlet.http.HttpServlet;
+
+@Disabled
 public class Learning {
+
+
+
+    @Test
+    public void intervalReplay() throws InterruptedException {
+        VirtualTimeScheduler scheduler = VirtualTimeScheduler.getOrSet();
+        Flux<Long> interval = Flux.interval( Duration.ofSeconds(5), scheduler);
+        ReplayProcessor<Long> replayProcessor = ReplayProcessor.create(0);
+
+        interval.subscribe(replayProcessor);
+        scheduler.advanceTimeBy( Duration.ofSeconds(1));
+
+
+        replayProcessor.subscribe( n -> System.out.println(n));
+
+        scheduler.advanceTimeBy( Duration.ofSeconds(25));
+
+
+    }
+
 
 
     @Test
@@ -46,6 +69,8 @@ public class Learning {
                 .subscribe( n -> System.out.println(n));
 
         Thread.sleep(20000);
+
+        HttpServlet s;
     }
     @Test
     public void httpClient() throws IOException, InterruptedException {
@@ -190,4 +215,10 @@ public class Learning {
                     .subscribe(System.out::println);
             Thread.sleep(5000);
     }
+
+    @Test
+     public void testLocaltime() {
+        System.out.println(LocalTime.now());
+    }
+
 }

@@ -15,5 +15,9 @@ export const api = {
         validateNewMode(newMode)
         return axios.put(`/mode/${newMode}`)
             .then( res => res.data.mode)
+    },
+    getTimers: function() {
+        return axios.get("/timers")
+            .then( res => res.data )
     }
 }
