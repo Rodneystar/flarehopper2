@@ -1,7 +1,5 @@
 package com.jdog.redis.flarehopper2;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -57,22 +55,20 @@ public class PersistentFlareHopperServiceTest {
     public void testPersistencebackwads() {
 
         File os = new File("testservice");
-
+        ObjectOutputStream outPutStream;
         try {
             FileOutputStream fos = new FileOutputStream(os);
-            ObjectOutputStream outPutStream = new ObjectOutputStream(fos);
+            outPutStream = new ObjectOutputStream(fos);
 
             AppState state = new AppState();
             state.currentMode  = FlarehopperMode.ON;
             state.eventList = Arrays.asList(new TimerEvent(LocalTime.of(1, 30), Duration.ofMinutes(60)));
             System.out.println(state.eventList.get(0).getDuration());
             outPutStream.writeObject(state);
-
+            outPutStream.close();
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

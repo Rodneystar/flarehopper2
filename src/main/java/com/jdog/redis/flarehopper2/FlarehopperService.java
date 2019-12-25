@@ -1,15 +1,15 @@
 package com.jdog.redis.flarehopper2;
 
-import com.jdog.redis.flarehopper2.dailytimer.DailyTimerControl;
-import com.jdog.redis.flarehopper2.dailytimer.TimerEvent;
-import reactor.core.Disposable;
-import reactor.core.Disposables;
-import reactor.core.publisher.Mono;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
+
+import com.jdog.redis.flarehopper2.dailytimer.DailyTimerControl;
+import com.jdog.redis.flarehopper2.dailytimer.TimerEvent;
+
+import reactor.core.Disposable;
+import reactor.core.Disposables;
+import reactor.core.publisher.Mono;
 
 public class FlarehopperService {
 

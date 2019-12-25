@@ -1,5 +1,13 @@
 package com.jdog.redis.flarehopper2;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.io.File;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import com.jdog.redis.flarehopper2.dailytimer.DailyTimerControl;
 import com.jdog.redis.flarehopper2.dailytimer.Switchable;
 import com.jdog.redis.flarehopper2.dailytimer.TimerEvent;
@@ -9,17 +17,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
 import reactor.test.scheduler.VirtualTimeScheduler;
-
-import java.io.File;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 class FlarehopperServiceTest {
 

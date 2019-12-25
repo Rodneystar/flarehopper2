@@ -9,9 +9,9 @@ import java.io.ObjectOutputStream;
 import java.time.Duration;
 import java.util.ArrayList;
 
-import com.jdog.redis.flarehopper2.FlarehopperService.FlarehopperMode;
 import com.jdog.redis.flarehopper2.dailytimer.DailyTimerControl;
 import com.jdog.redis.flarehopper2.dailytimer.TimerEvent;
+
 import reactor.core.Disposables;
 
 public class PersistentFlareHopperService extends FlarehopperService {
@@ -54,7 +54,7 @@ public class PersistentFlareHopperService extends FlarehopperService {
     }
 
     private void load() {
-        ArrayList<TimerEvent> eList = new ArrayList(state.eventList);
+        ArrayList<TimerEvent> eList = new ArrayList<TimerEvent>(state.eventList);
         timerControl.setEventList(eList);
         if (state.currentMode.equals(FlarehopperMode.RUNBACK)) {
             modeTimed();

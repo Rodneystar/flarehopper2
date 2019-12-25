@@ -1,7 +1,6 @@
 package com.jdog.redis.flarehopper2;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import com.jdog.redis.flarehopper2.FlarehopperService.FlarehopperMode;

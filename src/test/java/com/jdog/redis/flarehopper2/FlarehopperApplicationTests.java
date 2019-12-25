@@ -1,6 +1,16 @@
 package com.jdog.redis.flarehopper2;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,19 +20,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -56,7 +53,7 @@ class FlarehopperApplicationTests {
 	@Test
 	void getTimers_returnsJsonList() throws Exception {
 
-		Map<String, String> addTimerReqBody = new HashMap();
+		Map<String, String> addTimerReqBody = new HashMap<String, String>();
 		addTimerReqBody.put("startTime", "19:30");
 		addTimerReqBody.put("duration", "PT120M");
 		String reqBodyString = mapper.writeValueAsString(addTimerReqBody);
@@ -104,7 +101,7 @@ class FlarehopperApplicationTests {
 
 	@Test
 	void postTImers_overlappingTimers_400() throws Exception {
-		Map<String, String> addTimerReqBody = new HashMap();
+		Map<String, String> addTimerReqBody = new HashMap<String, String>();
 		addTimerReqBody.put("startTime", "19:30");
 		addTimerReqBody.put("duration", "PT120M");
 		String reqBodyString = mapper.writeValueAsString(addTimerReqBody);

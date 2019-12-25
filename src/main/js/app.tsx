@@ -1,23 +1,23 @@
-import React from 'react';
+import * as React from "react";
 import { render as _render } from 'react-dom';
-import ModeSwitchContainer from './ModeSwitchContainer.js';
-import TimerListContainer from './TimerListContainer.js';
-import '../styles/app.scss'
-import { api } from "./apiClient"
-import { MODES } from './flareDomain'
+import ModeSwitchContainer from './ModeSwitchContainer';
+import TimerListContainer from './TimerListContainer';
+import '../styles/app.scss';
+import { api } from "./apiClient";
+import { MODES } from './flareDomain';
 
-class App extends React.Component {
+class App extends React.Component<any, any> {
 
 	constructor(props) {
 		super(props);
 		this.state = {
 			mode: MODES.OFF,
-			timers: [],
+			timers: []
 		};
-		this.switchMode = this.switchMode.bind(this)
-		this.getMode = this.getMode.bind(this)
-		this.getTimers = this.getTimers.bind(this)
-		this.deleteTimer = this.deleteTimer.bind(this)
+		// this.switchMode = this.switchMode.bind(this)
+		// this.getMode = this.getMode.bind(this)
+		// this.getTimers = this.getTimers.bind(this)
+		// this.deleteTimer = this.deleteTimer.bind(this)
 
 	}
 
@@ -27,7 +27,7 @@ class App extends React.Component {
 	}
 
 	getMode() {
-		api.getCurrentMode().then( mode => this.setState({mode}) )
+		api.getCurrentMode().then( mode => super.setState({mode}) )
 	}
 
 	switchMode(newMode) {

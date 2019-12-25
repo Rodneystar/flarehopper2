@@ -1,33 +1,27 @@
 package com.jdog.redis.flarehopper2;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.ByteBuffer;
 import java.time.Duration;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.CountDownLatch;
 
 import com.jdog.redis.flarehopper2.FlarehopperService.FlarehopperMode;
-
 import com.jdog.redis.flarehopper2.dailytimer.TimerEvent;
+
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
+
 import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -35,8 +29,6 @@ import reactor.core.publisher.ReplayProcessor;
 import reactor.core.scheduler.Scheduler;
 import reactor.core.scheduler.Schedulers;
 import reactor.test.scheduler.VirtualTimeScheduler;
-
-import javax.servlet.http.HttpServlet;
 
 @Disabled
 public class Learning {
@@ -70,7 +62,6 @@ public class Learning {
 
         Thread.sleep(20000);
 
-        HttpServlet s;
     }
     @Test
     public void httpClient() throws IOException, InterruptedException {
@@ -93,7 +84,7 @@ public class Learning {
         state.eventList = Arrays.asList(new TimerEvent(LocalTime.of(1, 30), Duration.ofMinutes(60)));
         System.out.println(state.eventList.get(0).getDuration());
         outPutStream.writeObject(state);
-
+        outPutStream.close();
     }
 
     @Test
@@ -130,6 +121,7 @@ public class Learning {
         System.out.println(state.eventList.get(0).getDuration());
         System.out.println(state.eventList.get(0).getStartTime());
 
+        inputStream.close();
 
     }
     @Test

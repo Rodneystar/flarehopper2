@@ -1,8 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-// import ModeButton from './ModeButton.js';
+import * as React from "react";
+import { render as _render } from 'react-dom';
 
-export default class TimerList extends React.Component {
+export default class TimerList extends React.Component<any, any> {
 
 	constructor(props) {
 		super(props);

@@ -1,10 +1,9 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-import { MODES } from './flareDomain'
+import * as React from "react";
+import { render as _render } from 'react-dom';
 
 // const ModeButton = require('./ModeButton')
 
-export default class ModeButton extends React.Component {
+export default class ModeButton extends React.Component<any, any> {
 
 	constructor(props) {
 		super(props);
