@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {MODES} from './flareDomain';
+import {MODES, timerEvent} from './flareDomain';
 
 function validateNewMode(newMode) {
     if(!Object.values(MODES).includes(newMode)) {
@@ -16,7 +16,7 @@ export const api = {
         return axios.put(`/mode/${newMode}`)
             .then( res => res.data.mode)
     },
-    getTimers: function() {
+    getTimers: function() : Promise<timerEvent[]> {
         return axios.get("/timers")
             .then( res => res.data )
     },

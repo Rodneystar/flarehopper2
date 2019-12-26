@@ -4,9 +4,14 @@ import ModeSwitchContainer from './ModeSwitchContainer';
 import TimerListContainer from './TimerListContainer';
 import '../styles/app.scss';
 import { api } from "./apiClient";
-import { MODES } from './flareDomain';
+import { MODES, timerEvent } from './flareDomain';
 
-class App extends React.Component<any, any> {
+interface State {
+	mode: string;
+	timers: timerEvent[];
+}
+
+class App extends React.Component< any , State> {
 
 	constructor(props) {
 		super(props);
@@ -35,7 +40,7 @@ class App extends React.Component<any, any> {
 	}
 
 	getTimers() {
-		api.getTimers().then( timers => this.setState({timers}) )
+		api.getTimers().then( (timers: timerEvent[]) => this.setState({timers}) )
 	}
 
 	deleteTimer( idx ) {

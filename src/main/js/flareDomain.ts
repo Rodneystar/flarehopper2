@@ -4,3 +4,8 @@ export const MODES = {
     OFF: "OFF",
     ON: "ON"
 }
+
+export interface timerEvent {
+    startTime: string;
+    duration: Number;
+}
