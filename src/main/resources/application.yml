@@ -1,7 +1,7 @@
 
 flarehopper:
     filename: "flarehopper.state"
-    powerhost: "192.168.99.100"
+    powerhost: "localhost"
     powerport: 5000
     energenieSocketNumber: 1
 

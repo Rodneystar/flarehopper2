@@ -1,36 +1,63 @@
 
+
+$activeButtonColor: aqua;
+$inactiveButtonColor: red;
+
+
+
 body{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font: Verdana;
 
-    }
 
-#modeswitchcontainer {
+
+    #modeswitchcontainer {
+            
+        margin-top: 1rem;
+        display: flex;
+        height: 3rem;
+        flex-flow: row wrap;
+        // flex-direction: row;
+        // flex-wrap: wrap;
+        justify-content: space-around;
+        // align-content: center;
+        // align-items: flex-end;
         
-    margin-top: 1rem;
-    display: flex;
-    height: 3rem;
-    flex-flow: row wrap;
-    // flex-direction: row;
-    // flex-wrap: wrap;
-    justify-content: space-around;
-    // align-content: center;
-    // align-items: flex-end;
-    
-    .modebutton{
-        box-sizing: border-box;
-        flex-basis: 6rem;
-        height: 100%;
-        text-align: center;
-        line-height: 2rem;
-    }
-    .activemodebutton {
-        @extend .modebutton;
-        background-color: aqua;
+        .modebutton{
+            box-sizing: border-box;
+            flex-basis: 6rem;
+            height: 100%;
+            text-align: center;
+            line-height: 2rem;
+        }
+        .activemodebutton {
+            @extend .modebutton;
+            background-color: $activeButtonColor;
+        }
+
+
+        .inactivemodebutton {
+            @extend .modebutton;
+            background-color: $inactiveButtonColor;
+        }
     }
 
-    .inactivemodebutton {
-        @extend .modebutton;
-        background-color: red;
+    .timerlistcontainer {
+        display: flex;
+        flex-flow: row wrap;
+        // flex-direction: row;
+        // flex-wrap: wrap;
+        justify-content: space-around;
+
     }
+    .listContainer {
+        display: flex;
+        flex-flow: row wrap;
+        // flex-direction: row;
+        // flex-wrap: wrap;
+        justify-content: space-around;
+
+
+    }
+
 }
