@@ -19,11 +19,11 @@ class App extends React.Component< any , State> {
 			mode: MODES.OFF,
 			timers: []
 		};
-		// this.switchMode = this.switchMode.bind(this)
-		// this.getMode = this.getMode.bind(this)
-		// this.getTimers = this.getTimers.bind(this)
-		// this.deleteTimer = this.deleteTimer.bind(this)
-
+		this.switchMode = this.switchMode.bind(this)
+		this.getMode = this.getMode.bind(this)
+		this.getTimers = this.getTimers.bind(this)
+		this.deleteTimer = this.deleteTimer.bind(this)
+		this.addTimer = this.addTimer.bind(this)
 	}
 
 	componentDidMount() {
@@ -51,11 +51,15 @@ class App extends React.Component< any , State> {
 		api.delTimer(idx).then( timers => this.setState({timers}) )
 	}
 
+	addTimer( startTime, duration) {
+		api.addTimer( startTime, duration ).then( (res) => this.getTimers() )
+	}
+
 	render() {
 		return (
 			<div id="mainApp">
 				<ModeSwitchContainer currentMode={this.state.mode} switchMode={this.switchMode} />
-				<TimerListContainer  timers={this.state.timers } deleteTimer={this.deleteTimer} />
+				<TimerListContainer  timers={this.state.timers } deleteTimer={this.deleteTimer} addTimer={ this.addTimer } />
 			</div>
 		)
 	}

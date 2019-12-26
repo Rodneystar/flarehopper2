@@ -1,7 +1,9 @@
 
 
-$activeButtonColor: aqua;
+ 
+$activeButtonColor: rgba(86, 191, 218, 0.911);
 $inactiveButtonColor: red;
+$headerColor: #FFFF66;
 
 
 
@@ -9,19 +11,13 @@ body{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font: Verdana;
 
-
-
     #modeswitchcontainer {
             
         margin-top: 1rem;
         display: flex;
         height: 3rem;
         flex-flow: row wrap;
-        // flex-direction: row;
-        // flex-wrap: wrap;
         justify-content: space-around;
-        // align-content: center;
-        // align-items: flex-end;
         
         .modebutton{
             box-sizing: border-box;
@@ -29,35 +25,106 @@ body{
             height: 100%;
             text-align: center;
             line-height: 2rem;
+            cursor: pointer;
+            border-radius: 0.8rem; 
+            border-width:0.3rem;
+            border: solid;
+            border-color: $activeButtonColor
+
         }
         .activemodebutton {
             @extend .modebutton;
             background-color: $activeButtonColor;
+
         }
 
 
         .inactivemodebutton {
             @extend .modebutton;
-            background-color: $inactiveButtonColor;
         }
     }
 
-    .timerlistcontainer {
-        display: flex;
-        flex-flow: row wrap;
-        // flex-direction: row;
-        // flex-wrap: wrap;
-        justify-content: space-around;
+    #timerlistcontainer {
+        margin-top: 2rem;
+        margin-left: 10%;
+        margin-right: 10%;
+
+        #listContainer{
+            display: flex;
+            flex-flow: column;
+            align-items: center;
+
+            .timerListRow {
+                width:100%;
+                display: flex;
+                flex-flow: row;
+                justify-content: space-around;
+                border-radius: 0.3rem; 
+                border-width: 0.3rem;
+                border: solid transparent;
+               
+            }
+            #timerListHeader {
+                @extend .timerListRow;
+                background-color: $headerColor;
+            }
+            .timerListItemRow {
+                @extend .timerListRow;
+                cursor: pointer;
+            }
+            .timerListItemRow-deselected {
+              
+                @extend .timerListItemRow;            
+            }
+            .timerListItemRow-selected {
+                @extend .timerListItemRow;
+                // background-color: $activeButtonColor;
+                border: solid;
+                border-color: transparentize($color: $activeButtonColor ,$amount: 0.3);
+            }
+        }
+
+       #addTimerContainer{
+
+            display: flex;        
+            flex-flow: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2rem;
+
+
+           #addTimer {
+               display: flex;
+                flex-flow: row wrap;
+                justify-content: center;
+                margin-top: 0.5rem;
+                
+                .timeInput {
+                    display:flex;
+                    flex-flow: column;
+                    align-items: center;
+                    margin: 1rem;
+
+                       
+                }
+
+                input {
+                    width: 4.5rem;
+                    height: 1.5rem;
+                    border-radius: 0.2rem;
+
+                }
+                #startTime {
+                    @extend .timeInput;
+                }
+                #duration {
+                    @extend .timeInput;
+                }
+            }
+        }
+            
 
     }
-    .listContainer {
-        display: flex;
-        flex-flow: row wrap;
-        // flex-direction: row;
-        // flex-wrap: wrap;
-        justify-content: space-around;
-
-
-    }
+   
 
 }

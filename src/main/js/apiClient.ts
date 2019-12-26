@@ -1,5 +1,11 @@
-import axios from 'axios';
+import axiosBase from 'axios';
 import {MODES, timerEvent} from './flareDomain';
+
+const axios = axiosBase.create( {
+    headers: {
+        "Content-Type": "application/json"
+    }
+})
 
 function validateNewMode(newMode) {
     if(!Object.values(MODES).includes(newMode)) {
@@ -23,5 +29,9 @@ export const api = {
     delTimer: function( index ) {
         return axios.delete(`/timers/${index}`)
             .then( res => this.getTimers() )
+    },
+    addTimer: function( startTime, duration ) {
+        return axios.post(`/timers/add`,
+             JSON.stringify({ startTime, duration: `PT${duration}M` }))
     }
 }

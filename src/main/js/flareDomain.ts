@@ -7,5 +7,6 @@ export const MODES = {
 
 export interface timerEvent {
     startTime: string;
+    endTime: string;
     duration: Number;
 }
