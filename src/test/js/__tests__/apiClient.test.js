@@ -1,5 +1,3 @@
-
-import {getCurrentMode} from '../../../main/js/apiClient'
 import axiosBase from 'axios';
 import {MODES} from '../../../main/js/flareDomain'
 

@@ -42,7 +42,7 @@ class FlarehopperApplicationTests {
 
 	@Test
 	public void deleteEvent_callsDeleteOnTimerList_returnsOkIfOutOfBounds() throws Exception {
-		mockMvc.perform( delete("/timers/delete/0")
+		mockMvc.perform( delete("/timers/0")
 				.contentType(MediaType.APPLICATION_JSON))
 				.andExpect( status().isOk() );
 

@@ -77,7 +77,7 @@ public class FlareHopperControllerTests {
 
     @Test
     public void deleteEvent_callsDeleteOnTimerList() throws Exception {
-        mockMvc.perform( delete("/timers/delete/0")
+        mockMvc.perform( delete("/timers/0")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect( status().isOk() );
 
