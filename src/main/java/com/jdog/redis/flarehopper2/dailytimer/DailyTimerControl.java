@@ -41,10 +41,9 @@ public class DailyTimerControl {
 
     public void addTimer(TimerEvent event) {
         timerEvents.addEvent(event);
-        refreshTimers();
     }
 
-    private void refreshTimers() {
+    public void refreshTimers() {
         timerDisposable.dispose();
         Flux<String> x = Flux.fromIterable(timerEvents.getAllEvents())
             .flatMap(e -> Flux.merge(

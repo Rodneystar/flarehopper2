@@ -45,10 +45,14 @@ public class FlarehopperService {
 
     public void addTimer(TimerEvent event) {
         this.timerControl.addTimer(event);
+        if( FlarehopperMode.TIMED == getCurrentMode())
+            this.timerControl.refreshTimers();
     }
 
     public void removeTimer(int index) {
         this.timerControl.removeTimer(index);
+        if( FlarehopperMode.TIMED == getCurrentMode())
+            this.timerControl.refreshTimers();
     }
 
 

@@ -43,6 +43,8 @@ public class DailyTimerControlTests {
         assertThat(onLatch.getCount()).isEqualTo(onLatchCount- 0);    
 
         out.addTimer(new TimerEvent(LocalTime.now().plus(1, ChronoUnit.HOURS), Duration.ofHours(1)));
+        out.refreshTimers();
+
         assertThat(offLatch.getCount()).isEqualTo(offLatchCount - 1);
         assertThat(onLatch.getCount()).isEqualTo(onLatchCount- 0);    
 
@@ -52,6 +54,7 @@ public class DailyTimerControlTests {
 
 
         out.addTimer(new TimerEvent(LocalTime.now().plus(5, ChronoUnit.HOURS), Duration.ofHours(1)));
+        out.refreshTimers();
         assertThat(onLatch.getCount()).isEqualTo(onLatchCount- 1);    
         assertThat(offLatch.getCount()).isEqualTo(offLatchCount - 3);    
         testScheduler.advanceTimeBy(Duration.ofHours(24));

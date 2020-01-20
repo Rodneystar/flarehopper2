@@ -1,6 +1,10 @@
 package com.jdog.redis.flarehopper2;
 
 import com.jdog.redis.flarehopper2.dailytimer.Switchable;
+
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+
 import org.springframework.web.client.RestTemplate;
 import reactor.core.Disposable;
 import reactor.core.Disposables;
@@ -19,14 +23,18 @@ public class EnergenieSwitchable implements Switchable {
 
     private Disposable intervalDisposable;
 
+    private Logger logger;
+
     public EnergenieSwitchable(RestTemplate template) {
         this.template = template;
+        this.logger = LoggerFactory.getLogger(this.getClass());
         intervalDisposable = Disposables.single();
         current = "";
     }
 
     @Override
     public void on() {
+        logger.info("command: on, current: %s", current);
         if( !ON.equals(current) ) {
             current = ON;
             if( !intervalDisposable.isDisposed()) intervalDisposable.dispose();
@@ -39,6 +47,8 @@ public class EnergenieSwitchable implements Switchable {
 
     @Override
     public void off() {
+        logger.info("command: off, current: %s", current);
+
         if( !OFF.equals(current) ) {
         current = OFF;
         if( !intervalDisposable.isDisposed()) intervalDisposable.dispose();

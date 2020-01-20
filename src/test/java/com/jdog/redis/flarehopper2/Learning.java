@@ -18,6 +18,8 @@ import com.jdog.redis.flarehopper2.dailytimer.TimerEvent;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.DefaultUriBuilderFactory;
@@ -33,45 +35,39 @@ import reactor.test.scheduler.VirtualTimeScheduler;
 @Disabled
 public class Learning {
 
-
-
     @Test
     public void intervalReplay() throws InterruptedException {
         VirtualTimeScheduler scheduler = VirtualTimeScheduler.getOrSet();
-        Flux<Long> interval = Flux.interval( Duration.ofSeconds(5), scheduler);
+        Flux<Long> interval = Flux.interval(Duration.ofSeconds(5), scheduler);
         ReplayProcessor<Long> replayProcessor = ReplayProcessor.create(0);
 
         interval.subscribe(replayProcessor);
-        scheduler.advanceTimeBy( Duration.ofSeconds(1));
+        scheduler.advanceTimeBy(Duration.ofSeconds(1));
 
+        replayProcessor.subscribe(n -> System.out.println(n));
 
-        replayProcessor.subscribe( n -> System.out.println(n));
-
-        scheduler.advanceTimeBy( Duration.ofSeconds(25));
-
+        scheduler.advanceTimeBy(Duration.ofSeconds(25));
 
     }
 
-
-
     @Test
     public void testIntervalZeroDuration() throws InterruptedException {
-        Flux.interval(Duration.ZERO, Duration.ofSeconds(5))
-                .take(5)
-                .subscribe( n -> System.out.println(n));
+        Flux.interval(Duration.ZERO, Duration.ofSeconds(5)).take(5).subscribe(n -> System.out.println(n));
 
         Thread.sleep(20000);
 
     }
+
     @Test
     public void httpClient() throws IOException, InterruptedException {
         RestTemplateBuilder builder = new RestTemplateBuilder();
-        RestTemplate template = builder.uriTemplateHandler(
-                new DefaultUriBuilderFactory("http://192.168.0.28:5000/")).build();
-//        template.getForObject("/1/on", String.class);
+        RestTemplate template = builder.uriTemplateHandler(new DefaultUriBuilderFactory("http://192.168.0.28:5000/"))
+                .build();
+        // template.getForObject("/1/on", String.class);
 
         System.out.println(template.getForObject("/1/off", String.class));
     }
+
     @Test
     public void objOutputs() throws ClassNotFoundException, IOException, URISyntaxException {
         File os = new File("teststate");
@@ -80,13 +76,20 @@ public class Learning {
         ObjectOutputStream outPutStream = new ObjectOutputStream(fos);
 
         AppState state = new AppState();
-        state.currentMode  = FlarehopperMode.ON;
+        state.currentMode = FlarehopperMode.ON;
         state.eventList = Arrays.asList(new TimerEvent(LocalTime.of(1, 30), Duration.ofMinutes(60)));
         System.out.println(state.eventList.get(0).getDuration());
         outPutStream.writeObject(state);
         outPutStream.close();
     }
 
+    @Test
+    public void testLogger() {
+        String current = " something";
+        Logger logger = LoggerFactory.getLogger(this.getClass());
+        logger.info("command: on, current: %s", current);
+
+    }
     @Test
     public void parse_times() {
        Duration parsed = Duration.parse("PT120M");
