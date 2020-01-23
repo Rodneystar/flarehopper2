@@ -29,8 +29,8 @@ class FlarehopperServiceTest {
     VirtualTimeScheduler testScheduler;
 
     TimerEventList list;
-
     AtomicInteger onCounter;
+
 
     AtomicInteger offCounter;
 
@@ -74,6 +74,7 @@ class FlarehopperServiceTest {
 
         assertThat(onCounter.get()).isEqualTo(1);
         assertThat(offCounter.get()).isEqualTo( initOffCounter + 1 );
+        assertThat(service.getCurrentMode() == FlarehopperService.FlarehopperMode.TIMED);
     }
 
     @Test

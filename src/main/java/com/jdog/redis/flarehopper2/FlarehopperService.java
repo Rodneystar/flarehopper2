@@ -82,7 +82,7 @@ public class FlarehopperService {
 
     public void modeTimed() {
         if(currentMode == FlarehopperMode.RUNBACK) cancelRunBack();
-
+        if(currentMode == FlarehopperMode.TIMED) return;
         timerControl.activate();
         currentMode = FlarehopperMode.TIMED;
     }
@@ -96,23 +96,21 @@ public class FlarehopperService {
 
 
     public void modeRunback(Duration d) {
+        runbackUntil = LocalDateTime.now().plus(d);
+        timerControl.solidOn();
+
         if(currentMode == FlarehopperMode.RUNBACK) {
-            runbackUntil = runbackUntil.plus(d);
             runbackDisposable.dispose();
-            timerControl.solidOn();
-            runbackDisposable = Mono.delay(Duration.ofMinutes(
-                    LocalDateTime.now().until(runbackUntil, ChronoUnit.MINUTES)))
+            runbackDisposable = Mono.delay(d, timerControl.getScheduler())
                     .subscribe( l -> {
                         modeSet(prevMode);
                     });
         } else {
             prevMode = currentMode;
-            runbackUntil = LocalDateTime.now().plus(d);
-            timerControl.solidOn();
-            runbackDisposable = Mono.delay(Duration.ofMinutes(
-                    LocalDateTime.now().until(runbackUntil, ChronoUnit.MINUTES)))
+            currentMode = FlarehopperMode.RUNBACK;
+            runbackDisposable = Mono.delay(d, timerControl.getScheduler())
                     .subscribe( l -> {
-                        modeSet(currentMode);
+                        modeSet(prevMode);
                     });
         }
     }

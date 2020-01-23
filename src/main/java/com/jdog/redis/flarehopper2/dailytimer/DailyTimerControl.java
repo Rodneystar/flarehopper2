@@ -30,6 +30,9 @@ public class DailyTimerControl {
         this.timerDisposable = Disposables.single();
 	}
 
+    public Scheduler getScheduler() {
+        return this.scheduler;
+    }
 
 	public void removeTimer(int index) {
         timerEvents.removeEvent(index);
